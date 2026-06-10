@@ -7,37 +7,42 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://arkanova.cl"),
+  metadataBase: new URL("https://arkanovaspa.cl"),
   title: {
-    default: "Arkanova | Electricidad y remodelación integral en Santiago y RM",
+    default: "Arkanova | Electricidad y Remodelaciones en Santiago",
     template: "%s | Arkanova"
   },
   description:
-    "Expertos en electricidad y remodelación integral para casas, departamentos y oficinas en Santiago y Región Metropolitana. Agenda tu visita técnica con Arkanova.",
+    "Servicios de electricidad, remodelaciones y mantenciones para casas, departamentos, oficinas y locales comerciales en Santiago y Región Metropolitana.",
   keywords: [
     "Arkanova",
-    "Remodelación integral en Santiago",
+    "Arkanova SPA",
     "Electricidad en Santiago",
     "Electricista en Santiago y RM",
+    "Remodelaciones en Santiago",
     "Remodelación de casas",
     "Remodelación de departamentos",
     "Remodelación de oficinas",
-    "Visita técnica",
-    "Arkanova remodelación integral"
+    "Mantenciones en Santiago",
+    "Visita técnica"
   ],
+  alternates: {
+    canonical: "https://www.arkanovaspa.cl"
+  },
   openGraph: {
-    title: "Arkanova | Electricidad y remodelación integral en Santiago y RM",
+    title: "Arkanova | Electricidad y Remodelaciones en Santiago",
     description:
-      "Agenda una visita técnica para trabajos de electricidad y remodelación integral en casas, departamentos y oficinas.",
+      "Agenda una visita técnica para trabajos de electricidad, remodelación y mantención en Santiago y Región Metropolitana.",
     type: "website",
+    url: "https://www.arkanovaspa.cl",
     siteName: "Arkanova",
     locale: "es_CL",
     images: [{ url: "/images/arkanova-hero.png", width: 1744, height: 902, alt: "Equipo Arkanova en obra de remodelación" }]
   },
   twitter: {
     card: "summary_large_image",
-    title: "Arkanova | Electricidad y remodelación integral en Santiago y RM",
-    description: "Agenda una visita técnica con Arkanova para trabajos de electricidad y remodelación en Santiago y RM."
+    title: "Arkanova | Electricidad y Remodelaciones en Santiago",
+    description: "Electricidad, remodelaciones y mantenciones para casas, departamentos, oficinas y locales en Santiago y RM."
   }
 };
 

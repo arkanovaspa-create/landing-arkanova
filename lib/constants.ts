@@ -2,11 +2,11 @@ export const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WHATSAPP_NUMBER ?? "56937
 export const INSTAGRAM_URL = process.env.NEXT_PUBLIC_INSTAGRAM_URL ?? "https://www.instagram.com/arkanova_cl/";
 
 export const projectTypes = [
-  "Remodelación integral",
   "Electricidad domiciliaria y comercial",
-  "Mantención y reparaciones",
+  "Remodelaciones integrales",
+  "Mantenciones y reparaciones",
+  "Oficinas, locales, casas y departamentos",
+  "Normalización eléctrica y tableros",
   "Terminaciones interiores",
-  "Oficinas y espacios comerciales",
-  "Evaluación técnica en terreno",
   "Otro"
 ] as const;

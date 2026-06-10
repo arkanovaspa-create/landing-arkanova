@@ -14,6 +14,8 @@ type FormValues = {
   description: string;
 };
 
+type SubmitStatus = "idle" | "sending" | "success" | "error";
+
 const initialValues: FormValues = {
   name: "",
   phone: "",
@@ -25,57 +27,89 @@ const initialValues: FormValues = {
 export function LeadForm() {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [message, setMessage] = useState("");
-  const [submitted, setSubmitted] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
 
   const whatsappUrl = useMemo(() => {
-    if (!submitted) {
-      return "";
-    }
-
     return buildWhatsappUrl(
       buildLeadWhatsappMessage({
-        name: values.name,
+        name: values.name || "Cliente",
         phone: values.phone,
         commune: values.commune,
-        projectType: values.project_type,
+        projectType: values.project_type || "Trabajo por definir",
         description: values.description
       })
     );
-  }, [submitted, values]);
+  }, [values]);
 
   function updateValue(name: keyof FormValues, value: string) {
     setValues((current) => ({ ...current, [name]: value }));
-    setSubmitted(false);
+    setSubmitStatus("idle");
     setMessage("");
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
 
-    const requiredValues = [values.name, values.phone, values.commune, values.project_type];
-    const hasMissingField = requiredValues.some((value) => !value.trim());
+    const name = values.name.trim();
+    const phone = values.phone.trim();
+    const commune = values.commune.trim();
+    const projectType = values.project_type.trim();
+    const description = values.description.trim();
 
-    if (hasMissingField) {
-      setSubmitted(false);
+    if (!name || !phone || !commune) {
+      setSubmitStatus("error");
       setMessage("Completa los campos obligatorios antes de enviar.");
       return;
     }
 
-    if (values.phone.replace(/\D/g, "").length < 8) {
-      setSubmitted(false);
+    if (!projectType && !description) {
+      setSubmitStatus("error");
+      setMessage("Indica el servicio requerido o una breve descripción.");
+      return;
+    }
+
+    if (phone.replace(/\D/g, "").length < 8) {
+      setSubmitStatus("error");
       setMessage("Ingresa un teléfono válido para poder contactarte.");
       return;
     }
 
-    setSubmitted(true);
-    setMessage("Listo. Dejamos el mensaje preparado para agendar la visita técnica por WhatsApp.");
+    setSubmitStatus("sending");
+    setMessage("Enviando solicitud...");
+
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          name,
+          phone,
+          commune,
+          project_type: projectType,
+          description,
+          url_origen: typeof window !== "undefined" ? window.location.href : ""
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error("Lead request failed");
+      }
+
+      setSubmitStatus("success");
+      setMessage("Solicitud enviada correctamente. Te contactaremos a la brevedad.");
+    } catch {
+      setSubmitStatus("error");
+      setMessage("Hubo un problema al enviar el formulario. Puedes escribirnos directamente por WhatsApp.");
+    }
   }
 
   return (
     <form onSubmit={handleSubmit} className="grid min-w-0 gap-4 overflow-hidden rounded-lg border border-slate-200 bg-white p-4 shadow-soft ring-1 ring-white sm:p-6">
       <div>
         <p className="text-sm font-semibold uppercase text-gold">Contacto rápido</p>
-        <h3 className="mt-2 text-2xl font-semibold text-ink">Agenda una visita técnica</h3>
+        <h3 className="mt-2 text-2xl font-semibold text-ink">Solicita una visita técnica</h3>
         <p className="mt-2 text-sm leading-6 text-slate-600">
           Cuéntanos qué necesitas y coordinamos una visita técnica o revisión inicial por WhatsApp.
         </p>
@@ -83,14 +117,14 @@ export function LeadForm() {
 
       <div className="grid min-w-0 gap-4 sm:grid-cols-2">
         <Field label="Nombre" name="name" value={values.name} placeholder="Tu nombre" autoComplete="name" required onChange={updateValue} />
-        <Field label="WhatsApp" name="phone" value={values.phone} placeholder="+56 9 1234 5678" autoComplete="tel" inputMode="tel" required onChange={updateValue} />
+        <Field label="WhatsApp / Teléfono" name="phone" value={values.phone} placeholder="+56 9 1234 5678" autoComplete="tel" inputMode="tel" required onChange={updateValue} />
         <Field label="Comuna" name="commune" value={values.commune} placeholder="Santiago, Ñuñoa, Maipú..." required onChange={updateValue} />
-        <Select label="Tipo de trabajo" name="project_type" value={values.project_type} options={projectTypes} required onChange={updateValue} />
+        <Select label="Servicio requerido" name="project_type" value={values.project_type} options={projectTypes} onChange={updateValue} />
       </div>
 
       <div className="grid gap-2">
         <label htmlFor="description" className="text-sm font-semibold text-ink">
-          Descripción breve
+          Mensaje / descripción breve
         </label>
         <textarea
           id="description"
@@ -106,15 +140,19 @@ export function LeadForm() {
       {message ? (
         <div
           className={`rounded-md border px-4 py-3 text-sm ${
-            submitted ? "border-turquoise/30 bg-turquoise/10 text-ink" : "border-red-200 bg-red-50 text-red-800"
+            submitStatus === "success"
+              ? "border-turquoise/30 bg-turquoise/10 text-ink"
+              : submitStatus === "sending"
+                ? "border-slate-200 bg-slate-50 text-ink"
+                : "border-red-200 bg-red-50 text-red-800"
           }`}
           role="status"
         >
           <div className="flex gap-2">
-            {submitted ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" /> : null}
+            {submitStatus === "success" ? <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" /> : null}
             <p>{message}</p>
           </div>
-          {submitted && whatsappUrl ? (
+          {(submitStatus === "success" || submitStatus === "error") && whatsappUrl ? (
             <a
               href={whatsappUrl}
               target="_blank"
@@ -122,7 +160,7 @@ export function LeadForm() {
               className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-md bg-gold px-4 py-2 font-semibold text-white shadow-[0_12px_28px_rgba(253,135,28,0.2)] transition hover:bg-orange/90"
             >
               <MessageCircle className="h-5 w-5" aria-hidden="true" />
-              Abrir WhatsApp
+              Escribir por WhatsApp
             </a>
           ) : null}
         </div>
@@ -130,9 +168,10 @@ export function LeadForm() {
 
       <button
         type="submit"
-        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-gold px-5 py-3 text-base font-semibold text-white shadow-[0_14px_35px_rgba(253,135,28,0.24)] transition hover:bg-orange/90"
+        disabled={submitStatus === "sending"}
+        className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-md bg-gold px-5 py-3 text-base font-semibold text-white shadow-[0_14px_35px_rgba(253,135,28,0.24)] transition hover:bg-orange/90 disabled:cursor-not-allowed disabled:opacity-70"
       >
-        Agendar visita técnica
+        {submitStatus === "sending" ? "Enviando..." : "Solicitar visita técnica"}
         <ArrowRight className="h-5 w-5" aria-hidden="true" />
       </button>
     </form>

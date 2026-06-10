@@ -36,6 +36,7 @@ npm install
 Copia `.env.example` como `.env.local` y ajusta los valores si corresponde.
 
 ```bash
+APPS_SCRIPT_WEBHOOK_URL=https://script.google.com/macros/s/TU_WEBHOOK_ID/exec
 NEXT_PUBLIC_WHATSAPP_NUMBER=569XXXXXXXX
 NEXT_PUBLIC_INSTAGRAM_URL=https://www.instagram.com/arkanova_cl/
 ```
@@ -46,6 +47,8 @@ Valores usados por fallback en el codigo:
 - Instagram: `https://www.instagram.com/arkanova_cl/`
 
 Importante: no subir `.env.local` a GitHub. Ya esta incluido en `.gitignore`.
+
+`APPS_SCRIPT_WEBHOOK_URL` es privada de servidor. No debe tener prefijo `NEXT_PUBLIC`.
 
 ## Desarrollo
 
@@ -98,6 +101,7 @@ Antes de hacer `git add .`, confirma que `.env.local`, `.next`, `node_modules` y
 4. Install Command: `npm install`.
 5. Output Directory: dejar vacio.
 6. Agrega variables de entorno:
+   - `APPS_SCRIPT_WEBHOOK_URL`
    - `NEXT_PUBLIC_WHATSAPP_NUMBER`
    - `NEXT_PUBLIC_INSTAGRAM_URL`
 7. Ejecuta Deploy.

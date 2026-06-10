@@ -33,11 +33,11 @@ export function buildLeadWhatsappMessage(params: {
   const detail = params.description.trim() || "Prefiero explicar el detalle por WhatsApp.";
 
   return [
-    `Hola, soy ${params.name}. Me gustaría agendar una visita técnica con Arkanova.`,
-    `Tipo de trabajo:\n${params.projectType}`,
+    `Hola, quiero solicitar una visita técnica con Arkanova. Mi proyecto es: ${params.projectType}.`,
+    `Nombre:\n${params.name}`,
     `Comuna:\n${params.commune}`,
     `Descripción:\n${detail}`,
     `Mi WhatsApp:\n${params.phone}`,
-    "Vengo desde la landing / Instagram de Arkanova."
+    "Vengo desde la landing de Arkanova."
   ].join("\n\n");
 }
