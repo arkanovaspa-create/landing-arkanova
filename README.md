@@ -116,5 +116,4 @@ Antes de hacer `git add .`, confirma que `.env.local`, `.next`, `node_modules` y
 - `components/SectionHeading.tsx`: encabezados de seccion.
 - `lib/constants.ts`: variables publicas y opciones del formulario.
 - `lib/whatsapp.ts`: helpers para generar enlaces de WhatsApp.
-- `public/images/logo-arkanova.jpeg`: logo oficial.
-- `public/images/arkanova-hero.png`: imagen principal del hero.
+- `public/images/logo-arkanova.png`: logo oficial usado en header, footer y metadata.

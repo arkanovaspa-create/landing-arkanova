@@ -22,8 +22,7 @@ import { SectionHeading } from "./SectionHeading";
 import { INSTAGRAM_URL, WHATSAPP_NUMBER } from "@/lib/constants";
 import { buildWhatsappUrl } from "@/lib/whatsapp";
 
-const USE_TRANSPARENT_LOGO = false;
-const TRANSPARENT_LOGO_SRC = "/images/logo-arkanova.png";
+const LOGO_SRC = "/images/logo-arkanova.png";
 
 const services = [
   { title: "Electricidad domiciliaria y comercial", copy: "Revisión, reparación, normalización e instalación de puntos, tableros y circuitos para espacios seguros.", icon: PlugZap },
@@ -50,7 +49,7 @@ const team = [
     copy: "Encargado de planificación, control financiero interno, documentación, presupuestos y apoyo técnico en soluciones eléctricas."
   },
   {
-    name: "Rodrigo Nontecinos",
+    name: "Rodrigo Montecinos",
     role: "Ejecución en terreno, arquitectura y coordinación de proveedores",
     copy: "Encargado de la ejecución de obras, coordinación en terreno, apoyo arquitectónico, contacto con proveedores y control operativo de los proyectos."
   }
@@ -128,19 +127,14 @@ export function LandingPage() {
 
 function Hero({ whatsappUrl }: { whatsappUrl: string }) {
   return (
-    <section id="inicio" className="relative min-h-[92svh] overflow-hidden bg-[#303030] text-white">
-      <Image
-        src="/images/arkanova-hero.png"
-        alt="Equipo técnico trabajando en una remodelación profesional"
-        fill
-        priority
-        sizes="100vw"
-        className="object-cover object-center"
-      />
-      <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(48,48,48,0.9)_0%,rgba(48,48,48,0.68)_48%,rgba(48,48,48,0.18)_100%)]" />
-      <div className="absolute inset-0 bg-[#303030]/20 sm:bg-transparent" />
+    <section id="inicio" className="relative isolate min-h-[92svh] overflow-hidden bg-[#303030] text-white">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(38,207,205,0.28),transparent_30%),radial-gradient(circle_at_82%_18%,rgba(253,135,28,0.18),transparent_28%),linear-gradient(135deg,#303030_0%,#252525_52%,#353535_100%)]" />
+      <div className="absolute inset-0 opacity-[0.13] [background-image:linear-gradient(rgba(255,255,255,0.14)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.14)_1px,transparent_1px)] [background-size:44px_44px]" />
+      <div className="absolute -right-24 top-28 h-72 w-72 rounded-full border border-turquoise/20 bg-turquoise/5 blur-[1px] sm:h-96 sm:w-96" />
+      <div className="absolute bottom-16 right-4 hidden h-72 w-72 rotate-45 rounded-[3rem] border border-gold/20 bg-white/[0.03] lg:block" />
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-turquoise/70 to-transparent" />
       <Container className="relative flex min-h-[92svh] flex-col justify-between py-5 sm:py-7">
-        <header className="flex items-center justify-between gap-3 rounded-full border border-white/15 bg-[#303030]/45 px-3 py-2 shadow-[0_18px_50px_rgba(0,0,0,0.22)] backdrop-blur-md sm:px-4">
+        <header className="flex w-fit max-w-full items-center justify-between gap-3 rounded-full border border-white/15 bg-[#303030]/45 px-3 py-2 shadow-[0_18px_50px_rgba(0,0,0,0.22)] backdrop-blur-md sm:w-full sm:px-4">
           <a href="#" className="min-w-0" aria-label="Arkanova inicio">
             <LogoLockup inverse />
           </a>
@@ -454,22 +448,21 @@ function Footer({ whatsappUrl }: { whatsappUrl: string }) {
 function LogoLockup({ inverse = false, compact = false }: { inverse?: boolean; compact?: boolean }) {
   return (
     <span className="flex min-w-0 items-center gap-3">
-      {USE_TRANSPARENT_LOGO ? (
-        <span className={`relative shrink-0 ${compact ? "h-9 w-9" : "h-10 w-10 sm:h-12 sm:w-12"}`}>
-          <Image src={TRANSPARENT_LOGO_SRC} alt="Logo Arka Nova" fill sizes={compact ? "36px" : "48px"} className="object-contain" priority={!compact} />
-        </span>
-      ) : (
-        <span
-          className={`grid shrink-0 place-items-center rounded-full border font-bold ${
-            compact ? "h-9 w-9 text-base" : "h-11 w-11 text-lg sm:h-12 sm:w-12 sm:text-xl"
-          } ${inverse ? "border-turquoise/45 bg-white/10 text-turquoise" : "border-slate-200 bg-white text-turquoise"}`}
-          aria-hidden="true"
-        >
-          A
-        </span>
-      )}
-      <span className="min-w-0 leading-tight">
-        <span className={`block text-xl font-bold tracking-normal sm:text-2xl ${inverse ? "text-white" : "text-ink"}`}>Arkanova</span>
+      <span
+        className={`relative shrink-0 overflow-hidden rounded-lg bg-white shadow-sm ring-1 ${
+          compact ? "h-12 w-14" : "h-16 w-[76px] sm:h-20 sm:w-24"
+        } ${inverse ? "ring-white/20" : "ring-slate-200"}`}
+      >
+        <Image
+          src={LOGO_SRC}
+          alt="Logo Arka Nova"
+          fill
+          sizes={compact ? "56px" : "(min-width: 640px) 96px, 76px"}
+          className="object-contain p-1"
+          priority={!compact}
+        />
+      </span>
+      <span className="hidden min-w-0 leading-tight sm:block">
         <span className={`hidden text-xs font-medium sm:block ${inverse ? "text-white/70" : "text-slate-500"}`}>Remodelación Integral</span>
       </span>
     </span>

@@ -37,10 +37,10 @@ export const metadata: Metadata = {
     url: "https://www.arkanovaspa.cl",
     siteName: "Arkanova",
     locale: "es_CL",
-    images: [{ url: "/images/arkanova-hero.png", width: 1744, height: 902, alt: "Equipo Arkanova en obra de remodelación" }]
+    images: [{ url: "/images/logo-arkanova.png", width: 674, height: 575, alt: "Logo Arka Nova" }]
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "Arkanova | Electricidad y Remodelaciones en Santiago",
     description: "Electricidad, remodelaciones y mantenciones para casas, departamentos, oficinas y locales en Santiago y RM."
   }
