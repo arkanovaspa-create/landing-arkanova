@@ -22,7 +22,7 @@ import { SectionHeading } from "./SectionHeading";
 import { INSTAGRAM_URL, WHATSAPP_NUMBER } from "@/lib/constants";
 import { buildWhatsappUrl } from "@/lib/whatsapp";
 
-const LOGO_SRC = "/images/logo-arkanova.png";
+const LOGO_SRC = "/images/logo-arkanova-transparente.png";
 
 const services = [
   { title: "Electricidad domiciliaria y comercial", copy: "Revisión, reparación, normalización e instalación de puntos, tableros y circuitos para espacios seguros.", icon: PlugZap },
@@ -448,17 +448,13 @@ function Footer({ whatsappUrl }: { whatsappUrl: string }) {
 function LogoLockup({ inverse = false, compact = false }: { inverse?: boolean; compact?: boolean }) {
   return (
     <span className="flex min-w-0 items-center gap-3">
-      <span
-        className={`relative shrink-0 overflow-hidden rounded-lg bg-white shadow-sm ring-1 ${
-          compact ? "h-12 w-14" : "h-16 w-[76px] sm:h-20 sm:w-24"
-        } ${inverse ? "ring-white/20" : "ring-slate-200"}`}
-      >
+      <span className={`relative shrink-0 ${compact ? "h-12 w-14" : "h-16 w-[76px] sm:h-[72px] sm:w-[84px]"}`}>
         <Image
           src={LOGO_SRC}
-          alt="Logo Arka Nova"
+          alt="Arkanova SpA"
           fill
-          sizes={compact ? "56px" : "(min-width: 640px) 96px, 76px"}
-          className="object-contain p-1"
+          sizes={compact ? "56px" : "(min-width: 640px) 84px, 76px"}
+          className="object-contain"
           priority={!compact}
         />
       </span>

@@ -29,6 +29,10 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "https://www.arkanovaspa.cl"
   },
+  icons: {
+    icon: "/images/logo-arkanova-transparente.png",
+    apple: "/images/logo-arkanova-transparente.png"
+  },
   openGraph: {
     title: "Arkanova | Electricidad y Remodelaciones en Santiago",
     description:
@@ -37,7 +41,7 @@ export const metadata: Metadata = {
     url: "https://www.arkanovaspa.cl",
     siteName: "Arkanova",
     locale: "es_CL",
-    images: [{ url: "/images/logo-arkanova.png", width: 674, height: 575, alt: "Logo Arka Nova" }]
+    images: [{ url: "/images/logo-arkanova-transparente.png", width: 674, height: 575, alt: "Arkanova SpA" }]
   },
   twitter: {
     card: "summary",
