@@ -13,3 +13,5 @@ yarn-error.log*
 dist
 coverage
 *.tsbuildinfo
+automatizacion-arkanova/
+sistema-arkanova/
