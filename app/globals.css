@@ -4,16 +4,12 @@
 
 :root {
   color-scheme: light;
-  --background: #f7fafa;
-  --foreground: #363636;
+  --background: #faf9f6;
+  --foreground: #101b33;
 }
 
 * {
   box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
 }
 
 body {
@@ -31,6 +27,131 @@ textarea {
 }
 
 ::selection {
-  background: #26cfcd;
-  color: #363636;
+  background: #c6a258;
+  color: #101b33;
+}
+
+:focus-visible {
+  outline: 2px solid #c6a258;
+  outline-offset: 2px;
+}
+
+@keyframes section-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.animate-section-in {
+  animation: section-fade-in 250ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-section-in {
+    animation: none;
+  }
+}
+
+/* Circuit-trace corner accents (Hero, header, footer) */
+
+.corner-accent {
+  position: relative;
+}
+
+.corner-accent::before,
+.corner-accent::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  pointer-events: none;
+}
+
+.corner-accent::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1.5px solid rgba(198, 162, 88, 0.7);
+  border-left: 1.5px solid rgba(198, 162, 88, 0.7);
+}
+
+.corner-accent::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1.5px solid rgba(198, 162, 88, 0.7);
+  border-right: 1.5px solid rgba(198, 162, 88, 0.7);
+}
+
+/* Global comet backdrop: a single "dot with trail" motif crossing the whole
+   viewport on a fixed layer behind section content. The rotation aims the
+   travel axis; translateX moves the comet along it, so the trail always
+   points away from the direction of movement. */
+
+.tech-comet {
+  position: absolute;
+  height: 2px;
+  will-change: transform;
+}
+
+.tech-comet::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(198, 162, 88, 0.2);
+}
+
+.tech-comet::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -3px;
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-radius: 9999px;
+  background: rgba(198, 162, 88, 0.7);
+}
+
+@keyframes comet-travel {
+  from {
+    transform: rotate(var(--comet-angle, 0deg)) translateX(-20vmax);
+  }
+  to {
+    transform: rotate(var(--comet-angle, 0deg)) translateX(130vmax);
+  }
+}
+
+.tech-comet-a {
+  top: 16%;
+  left: 0;
+  width: 84px;
+  --comet-angle: 15deg;
+  animation: comet-travel 38s linear infinite;
+  animation-delay: -12s;
+}
+
+.tech-comet-b {
+  top: 68%;
+  left: 0;
+  width: 64px;
+  --comet-angle: -10deg;
+  animation: comet-travel 52s linear infinite;
+  animation-delay: -33s;
+}
+
+.tech-comet-c {
+  top: 34%;
+  left: 100%;
+  width: 100px;
+  --comet-angle: 169deg;
+  animation: comet-travel 64s linear infinite;
+  animation-delay: -21s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tech-comet {
+    display: none;
+  }
 }

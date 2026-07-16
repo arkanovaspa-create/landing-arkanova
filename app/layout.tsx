@@ -1,19 +1,71 @@
 import type { Metadata, Viewport } from "next";
+import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { INSTAGRAM_URL, WHATSAPP_NUMBER, projectTypes } from "@/lib/constants";
+
+const coverageZones = ["Providencia", "Bilbao", "Cerro Colorado", "Pudahuel"];
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": ["ElectricalContractor", "GeneralContractor"],
+  name: "Arkanova",
+  url: "https://www.arkanovaspa.cl",
+  image: "https://www.arkanovaspa.cl/images/logo-arkanova-transparente.png",
+  telephone: `+${WHATSAPP_NUMBER}`,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Santiago",
+    addressRegion: "Región Metropolitana",
+    addressCountry: "CL"
+  },
+  areaServed: [
+    { "@type": "AdministrativeArea", name: "Región Metropolitana de Santiago" },
+    ...coverageZones.map((zone) => ({ "@type": "Place", name: zone }))
+  ],
+  sameAs: [INSTAGRAM_URL],
+  makesOffer: projectTypes
+    .filter((service) => service !== "Otro")
+    .map((service) => ({
+      "@type": "Offer",
+      itemOffered: {
+        "@type": "Service",
+        name: service
+      }
+    }))
+};
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
+  display: "swap"
+});
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  variable: "--font-fraunces",
+  display: "swap"
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains-mono",
+  display: "swap"
+});
 
 export const viewport: Viewport = {
   width: "device-width",
-  initialScale: 1
+  initialScale: 1,
+  themeColor: "#0D1733"
 };
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://arkanovaspa.cl"),
   title: {
-    default: "Arkanova | Electricidad y Remodelaciones en Santiago",
+    default: "Arkanova | Instalaciones Eléctricas y Remodelaciones",
     template: "%s | Arkanova"
   },
   description:
-    "Servicios de electricidad, remodelaciones y mantenciones para casas, departamentos, oficinas y locales comerciales en Santiago y Región Metropolitana.",
+    "Arkanova: instalaciones eléctricas con certificación TE1/SEC, remodelaciones y mantenciones en Santiago y la Región Metropolitana. Agenda tu visita técnica.",
   keywords: [
     "Arkanova",
     "Arkanova SPA",
@@ -24,6 +76,7 @@ export const metadata: Metadata = {
     "Remodelación de departamentos",
     "Remodelación de oficinas",
     "Mantenciones en Santiago",
+    "Normalización eléctrica TE1 SEC",
     "Visita técnica"
   ],
   alternates: {
@@ -34,9 +87,9 @@ export const metadata: Metadata = {
     apple: "/images/logo-arkanova-transparente.png"
   },
   openGraph: {
-    title: "Arkanova | Electricidad y Remodelaciones en Santiago",
+    title: "Arkanova | Instalaciones Eléctricas y Remodelaciones",
     description:
-      "Agenda una visita técnica para trabajos de electricidad, remodelación y mantención en Santiago y Región Metropolitana.",
+      "Instalaciones eléctricas con certificación TE1/SEC, remodelaciones y mantenciones en Santiago y la Región Metropolitana. Agenda tu visita técnica.",
     type: "website",
     url: "https://www.arkanovaspa.cl",
     siteName: "Arkanova",
@@ -45,15 +98,22 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "Arkanova | Electricidad y Remodelaciones en Santiago",
-    description: "Electricidad, remodelaciones y mantenciones para casas, departamentos, oficinas y locales en Santiago y RM."
+    title: "Arkanova | Instalaciones Eléctricas y Remodelaciones",
+    description: "Electricidad con certificación TE1/SEC, remodelaciones y mantenciones en Santiago y la Región Metropolitana.",
+    images: ["/images/logo-arkanova-transparente.png"]
   }
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es-CL">
-      <body className="font-sans antialiased">{children}</body>
+    <html lang="es-CL" className={`${inter.variable} ${fraunces.variable} ${jetbrainsMono.variable}`}>
+      <body className="font-sans antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+        {children}
+      </body>
     </html>
   );
 }
