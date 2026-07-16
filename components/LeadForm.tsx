@@ -3,6 +3,7 @@
 import type { FormEvent } from "react";
 import { useMemo, useState } from "react";
 import { ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 import { projectTypes } from "@/lib/constants";
 import { buildLeadWhatsappMessage, buildWhatsappUrl } from "@/lib/whatsapp";
 
@@ -99,9 +100,11 @@ export function LeadForm() {
 
       setSubmitStatus("success");
       setMessage("Solicitud enviada correctamente. Te contactaremos a la brevedad.");
+      trackEvent("form_submit_success");
     } catch {
       setSubmitStatus("error");
       setMessage("Hubo un problema al enviar el formulario. Puedes escribirnos directamente por WhatsApp.");
+      trackEvent("form_submit_fallback_whatsapp");
     }
   }
 

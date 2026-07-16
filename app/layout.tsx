@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Fraunces, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import { Analytics } from "@/components/Analytics";
 import { INSTAGRAM_URL, WHATSAPP_NUMBER, projectTypes } from "@/lib/constants";
 
 const coverageZones = ["Providencia", "Bilbao", "Cerro Colorado", "Pudahuel"];
@@ -112,6 +113,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
         />
+        <Analytics />
         {children}
       </body>
     </html>

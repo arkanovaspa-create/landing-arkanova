@@ -24,6 +24,7 @@ import { SectionHeading } from "./SectionHeading";
 import { SectionNav } from "./SectionNav";
 import type { NavSection } from "./SectionNav";
 import { TechBackdrop } from "./TechBackdrop";
+import { trackEvent } from "@/lib/analytics";
 import { INSTAGRAM_URL, WHATSAPP_NUMBER } from "@/lib/constants";
 import { buildWhatsappUrl } from "@/lib/whatsapp";
 
@@ -40,6 +41,7 @@ const serviceCategories = [
   {
     id: "instalaciones-electricas",
     title: "Instalaciones Eléctricas",
+    analyticsCategory: "instalaciones_electricas",
     copy: "Revisión, normalización e instalación de puntos, tableros y circuitos, incluyendo normalizaciones con certificación TE1/SEC.",
     icon: PlugZap,
     items: ["Electricidad domiciliaria y comercial", "Normalización eléctrica y tableros"]
@@ -47,6 +49,7 @@ const serviceCategories = [
   {
     id: "remodelaciones",
     title: "Remodelaciones",
+    analyticsCategory: "remodelaciones",
     copy: "Mejoramos casas, departamentos, oficinas y locales con una ejecución ordenada de principio a fin.",
     icon: Hammer,
     items: ["Remodelaciones integrales", "Terminaciones interiores"]
@@ -54,6 +57,7 @@ const serviceCategories = [
   {
     id: "mantencion-y-espacios",
     title: "Mantención y Espacios",
+    analyticsCategory: "mantencion_espacios",
     copy: "Resolvemos fallas, mejoras puntuales y trabajos urgentes en espacios habitacionales y comerciales.",
     icon: Wrench,
     items: ["Mantenciones y reparaciones", "Oficinas, locales, casas y departamentos"]
@@ -208,6 +212,7 @@ function Hero({ isActive, whatsappUrl, onNavigate }: SectionProps & { whatsappUr
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent("whatsapp_click", { location: "hero" })}
               className="inline-flex min-h-[52px] w-full items-center justify-center gap-2 rounded-md border border-white/30 bg-white/10 px-4 py-3 text-base font-semibold text-white backdrop-blur transition hover:border-gold/60 hover:bg-white/20 sm:w-auto sm:px-5"
             >
               <MessageCircle className="h-5 w-5 shrink-0" aria-hidden="true" />
@@ -268,6 +273,7 @@ function Services({ isActive }: SectionProps) {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={`Cotizar ${category.title} por WhatsApp`}
+                  onClick={() => trackEvent("whatsapp_click", { location: "categoria", category: category.analyticsCategory })}
                   className="mt-6 inline-flex min-h-11 items-center justify-center gap-2 rounded-md border border-navy/15 bg-soft px-4 py-2 text-sm font-semibold text-navy transition hover:border-gold hover:bg-gold/10 hover:text-gold-ink"
                 >
                   <MessageCircle className="h-4 w-4" aria-hidden="true" />
@@ -460,7 +466,13 @@ function Footer({ whatsappUrl, onNavigate }: { whatsappUrl: string; onNavigate: 
             <p className="font-mono text-xs uppercase tracking-[0.16em] text-gold-light">Contacto</p>
             <ul className="mt-4 grid gap-3 text-sm text-slate-300">
               <li>
-                <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 transition hover:text-gold">
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent("whatsapp_click", { location: "footer" })}
+                  className="flex items-center gap-2 transition hover:text-gold"
+                >
                   <MessageCircle className="h-4 w-4 shrink-0 text-gold" aria-hidden="true" />
                   {formatChileanPhone(WHATSAPP_NUMBER)}
                 </a>
@@ -472,7 +484,13 @@ function Footer({ whatsappUrl, onNavigate }: { whatsappUrl: string; onNavigate: 
                 </a>
               </li>
               <li>
-                <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 transition hover:text-gold">
+                <a
+                  href={INSTAGRAM_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => trackEvent("instagram_click")}
+                  className="flex items-center gap-2 transition hover:text-gold"
+                >
                   <Instagram className="h-4 w-4 shrink-0 text-gold" aria-hidden="true" />
                   @arkanova_cl
                 </a>

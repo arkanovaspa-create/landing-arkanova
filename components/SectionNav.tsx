@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Instagram, Menu, MessageCircle, X } from "lucide-react";
 import { Container } from "./Container";
 import { LogoLockup } from "./LogoLockup";
+import { trackEvent } from "@/lib/analytics";
 
 export type NavSection = {
   id: string;
@@ -98,6 +99,7 @@ export function SectionNav({ sections, activeSection, onNavigate, whatsappUrl, i
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Contactar por WhatsApp"
+            onClick={() => trackEvent("whatsapp_click", { location: "nav" })}
             className="grid min-h-11 min-w-11 place-items-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-gold hover:text-gold"
           >
             <MessageCircle className="h-5 w-5" aria-hidden="true" />
@@ -107,6 +109,7 @@ export function SectionNav({ sections, activeSection, onNavigate, whatsappUrl, i
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Ver Instagram de Arkanova"
+            onClick={() => trackEvent("instagram_click")}
             className="grid min-h-11 min-w-11 place-items-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-gold hover:text-gold"
           >
             <Instagram className="h-5 w-5" aria-hidden="true" />
@@ -176,6 +179,7 @@ export function SectionNav({ sections, activeSection, onNavigate, whatsappUrl, i
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Contactar por WhatsApp"
+                onClick={() => trackEvent("whatsapp_click", { location: "nav" })}
                 className="grid min-h-11 min-w-11 place-items-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-gold hover:text-gold"
               >
                 <MessageCircle className="h-5 w-5" aria-hidden="true" />
@@ -185,6 +189,7 @@ export function SectionNav({ sections, activeSection, onNavigate, whatsappUrl, i
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Ver Instagram de Arkanova"
+                onClick={() => trackEvent("instagram_click")}
                 className="grid min-h-11 min-w-11 place-items-center rounded-full border border-white/20 bg-white/10 text-white transition hover:border-gold hover:text-gold"
               >
                 <Instagram className="h-5 w-5" aria-hidden="true" />
