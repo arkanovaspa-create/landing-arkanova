@@ -116,4 +116,7 @@ Antes de hacer `git add .`, confirma que `.env.local`, `.next`, `node_modules` y
 - `components/SectionHeading.tsx`: encabezados de seccion.
 - `lib/constants.ts`: variables publicas y opciones del formulario.
 - `lib/whatsapp.ts`: helpers para generar enlaces de WhatsApp.
-- `public/images/logo-arkanova-transparente.png`: logo oficial usado en header, footer, metadata y favicon.
+- `public/images/logo-completo-transparente.png`: lockup completo (icono+texto), blanco+dorado, para fondos ya oscuros (header, footer).
+- `public/images/icono-transparente-512.png`: solo simbolo, blanco+dorado, para la version compacta del menu movil.
+- `public/images/logo-completo-sobre-navy.png`: lockup completo con placa navy incluida, para metadata (Schema.org, Open Graph, Twitter card).
+- `public/images/favicon.ico` y `public/images/icono-apple-touch-180.png`: favicon y apple touch icon, con placa navy incluida.

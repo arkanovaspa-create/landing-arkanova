@@ -136,6 +136,13 @@ export function LandingPage() {
     WHATSAPP_NUMBER
   );
 
+  useEffect(() => {
+    const hash = window.location.hash.replace("#", "");
+    if (NAV_SECTIONS.some((section) => section.id === hash)) {
+      setActiveSection(hash);
+    }
+  }, []);
+
   return (
     <>
       <TechBackdrop />
@@ -439,7 +446,7 @@ function Footer({ whatsappUrl, onNavigate }: { whatsappUrl: string; onNavigate: 
       <Container>
         <div className="grid gap-9 border-t border-white/10 pt-10 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_1fr]">
           <div className="corner-accent max-w-lg p-3">
-            <LogoLockup inverse compact />
+            <LogoLockup />
             <p className="mt-4 max-w-lg text-sm leading-6 text-slate-300">
               Electricidad, remodelaciones y mantenciones para casas, departamentos, oficinas y locales comerciales en Santiago y Región Metropolitana.
             </p>

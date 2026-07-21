@@ -1,28 +1,39 @@
 import Image from "next/image";
 
-const LOGO_SRC = "/images/logo-arkanova-transparente.png";
+// Fondo ya oscuro (header/footer/drawer): logo blanco+dorado sobre transparencia.
+const LOGO_FULL_SRC = "/images/logo-completo-transparente.png";
+const LOGO_FULL_RATIO = 2000 / 1620;
+
+const LOGO_ICON_SRC = "/images/icono-transparente-512.png";
 
 type LogoLockupProps = {
-  inverse?: boolean;
   compact?: boolean;
+  variant?: "full" | "icon";
 };
 
-export function LogoLockup({ inverse = false, compact = false }: LogoLockupProps) {
+export function LogoLockup({ compact = false, variant = "full" }: LogoLockupProps) {
+  const isIcon = variant === "icon";
+  const height = compact ? 48 : 64;
+  const width = isIcon ? height : Math.round(height * LOGO_FULL_RATIO);
+
   return (
     <span className="flex min-w-0 items-center gap-3">
-      <span className={`relative shrink-0 ${compact ? "h-12 w-14" : "h-16 w-[76px] sm:h-[72px] sm:w-[84px]"}`}>
+      <span className="relative shrink-0" style={{ height, width }}>
         <Image
-          src={LOGO_SRC}
+          src={isIcon ? LOGO_ICON_SRC : LOGO_FULL_SRC}
           alt="Arkanova SpA"
           fill
-          sizes={compact ? "56px" : "(min-width: 640px) 84px, 76px"}
+          sizes={`${width}px`}
           className="object-contain"
           priority={!compact}
         />
       </span>
-      <span className="hidden min-w-0 leading-tight sm:block">
-        <span className={`hidden text-xs font-medium sm:block ${inverse ? "text-white/70" : "text-slate-500"}`}>Remodelación Integral</span>
-      </span>
+      {isIcon ? null : (
+        <span className="hidden min-w-0 leading-tight sm:block">
+          <span className="block text-sm font-bold uppercase tracking-wide text-white">Arkanova</span>
+          <span className="block text-xs font-medium text-gold-light">Remodelación Integral</span>
+        </span>
+      )}
     </span>
   );
 }

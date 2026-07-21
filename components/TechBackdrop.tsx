@@ -4,6 +4,9 @@ export function TechBackdrop() {
       <div className="tech-comet tech-comet-a" />
       <div className="tech-comet tech-comet-b" />
       <div className="tech-comet tech-comet-c" />
+      <div className="tech-comet tech-comet-d" />
+      <div className="tech-comet tech-comet-e" />
+      <div className="tech-comet tech-comet-f" />
     </div>
   );
 }

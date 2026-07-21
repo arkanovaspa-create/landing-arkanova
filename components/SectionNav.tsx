@@ -71,7 +71,7 @@ export function SectionNav({ sections, activeSection, onNavigate, whatsappUrl, i
           className="corner-accent min-w-0 shrink-0 py-1 pl-2"
           aria-label="Ir a Inicio"
         >
-          <LogoLockup inverse />
+          <LogoLockup />
         </button>
 
         <nav className="hidden items-center gap-6 lg:flex" aria-label="Navegación principal">
@@ -142,7 +142,7 @@ export function SectionNav({ sections, activeSection, onNavigate, whatsappUrl, i
             className="absolute right-0 top-0 flex h-full w-72 max-w-[85vw] flex-col bg-navy p-6 shadow-[0_0_60px_rgba(0,0,0,0.4)]"
           >
             <div className="flex items-center justify-between">
-              <LogoLockup inverse compact />
+              <LogoLockup compact variant="icon" />
               <button
                 ref={closeButtonRef}
                 type="button"

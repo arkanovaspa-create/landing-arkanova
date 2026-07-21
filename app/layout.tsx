@@ -11,7 +11,7 @@ const localBusinessSchema = {
   "@type": ["ElectricalContractor", "GeneralContractor"],
   name: "Arkanova",
   url: "https://www.arkanovaspa.cl",
-  image: "https://www.arkanovaspa.cl/images/logo-arkanova-transparente.png",
+  image: "https://www.arkanovaspa.cl/images/logo-completo-sobre-navy.png",
   telephone: `+${WHATSAPP_NUMBER}`,
   address: {
     "@type": "PostalAddress",
@@ -84,8 +84,8 @@ export const metadata: Metadata = {
     canonical: "https://www.arkanovaspa.cl"
   },
   icons: {
-    icon: "/images/logo-arkanova-transparente.png",
-    apple: "/images/logo-arkanova-transparente.png"
+    icon: "/images/favicon.ico",
+    apple: "/images/icono-apple-touch-180.png"
   },
   openGraph: {
     title: "Arkanova | Instalaciones Eléctricas y Remodelaciones",
@@ -95,13 +95,13 @@ export const metadata: Metadata = {
     url: "https://www.arkanovaspa.cl",
     siteName: "Arkanova",
     locale: "es_CL",
-    images: [{ url: "/images/logo-arkanova-transparente.png", width: 674, height: 575, alt: "Arkanova SpA" }]
+    images: [{ url: "/images/logo-completo-sobre-navy.png", width: 2000, height: 1620, alt: "Arkanova SpA" }]
   },
   twitter: {
     card: "summary",
     title: "Arkanova | Instalaciones Eléctricas y Remodelaciones",
     description: "Electricidad con certificación TE1/SEC, remodelaciones y mantenciones en Santiago y la Región Metropolitana.",
-    images: ["/images/logo-arkanova-transparente.png"]
+    images: ["/images/logo-completo-sobre-navy.png"]
   }
 };
 
